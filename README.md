@@ -38,6 +38,7 @@ computed on the current balances of A_T(W).
 | 02 | Grid — AAVE, all 7 windows × 2 active defs | https://dune.com/queries/7502010 |
 | 03 | Grid — UNI, all 7 windows × 2 active defs | https://dune.com/queries/7502379 |
 | 04 | Grid — DAI, all 7 windows × 2 active defs | https://dune.com/queries/7502514 |
+| 05 | Grid — USDC, all 7 windows × 2 active defs | https://dune.com/queries/7502585 |
 
 ## Results so far
 
@@ -103,6 +104,31 @@ computed on the current balances of A_T(W).
 | 1y | sent or received | 233,039 | 3,810,322,873 | 0.9962 |
 | all | sent only | 674,429 | 2,681,618,418 | 0.9992 |
 | all | sent or received | 812,736 | 4,375,642,490 | 0.9980 |
+
+### USDC grid (Query 05)
+
+| Window | Active def. | Active addresses | Total balance | Gini |
+|---|---|---|---|---|
+| 1d | sent only | 38,061 | 13,958,803,441 | 0.9944 |
+| 1d | sent or received | 64,156 | 15,954,134,947 | 0.9940 |
+| 1w | sent only | 143,561 | 17,868,653,427 | 0.9939 |
+| 1w | sent or received | 229,751 | 21,053,321,016 | 0.9937 |
+| 1m | sent only | 376,824 | 26,056,857,841 | 0.9950 |
+| 1m | sent or received | 583,245 | 29,874,557,140 | 0.9942 |
+| 3m | sent only | 1,180,439 | 29,573,179,653 | 0.9973 |
+| 3m | sent or received | 1,616,461 | 34,851,179,729 | 0.9962 |
+| 6m | sent only | 2,759,845 | 32,028,246,754 | 0.9984 |
+| 6m | sent or received | 3,555,876 | 52,564,553,029 | 0.9969 |
+| 1y | sent only | 3,384,324 | 34,749,444,074 | 0.9983 |
+| 1y | sent or received | 4,540,380 | 52,878,522,950 | 0.9977 |
+| all | sent only | 4,703,691 | 39,885,915,854 | 0.9984 |
+| all | sent or received | 6,855,774 | 53,511,887,415 | 0.9978 |
+
+**USDC observations:**
+- USDC has by far the largest active user base of any token analyzed: **38,061 daily senders, 4.7M all-time senders** — orders of magnitude beyond the governance tokens.
+- The Gini curve is the flattest observed so far (range 0.004 across all windows for sent-only), reinforcing the pattern that stablecoins behave fundamentally differently from governance tokens.
+- The 1-day USDC active set (38k addresses) is already 80× larger than UNI's 1-day active set (479) and 8× larger than UNI's all-time active set — a striking illustration of which Ethereum tokens function as money versus speculation.
+- **Pattern confirmed across two stablecoins (DAI, USDC):** when a token is actively used as currency, the active-holder Gini converges to the all-time Gini quickly; the dormant tail is small.
 
 **DAI observations:**
 - DAI shows a remarkably **flat Gini curve** across windows: from 0.9944 at 1-day sent-only to 0.9992 all-time — a range of only 0.005 compared to UNI's range of 0.055.
