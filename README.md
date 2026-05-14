@@ -37,6 +37,7 @@ computed on the current balances of A_T(W).
 | 01 | Pilot — UNI, 30-day window, sent-only | https://dune.com/queries/7501844 |
 | 02 | Grid — AAVE, all 7 windows × 2 active defs | https://dune.com/queries/7502010 |
 | 03 | Grid — UNI, all 7 windows × 2 active defs | https://dune.com/queries/7502379 |
+| 04 | Grid — DAI, all 7 windows × 2 active defs | https://dune.com/queries/7502514 |
 
 ## Results so far
 
@@ -83,6 +84,31 @@ computed on the current balances of A_T(W).
 | 1y | sent or received | 392,544 | 895,649,841 | 0.9975 |
 | all | sent only | 192,687 | 658,862,916 | 0.9992 |
 | all | sent or received | 440,001 | 895,650,420 | 0.9978 |
+
+### DAI grid (Query 04)
+
+| Window | Active def. | Active addresses | Total balance | Gini |
+|---|---|---|---|---|
+| 1d | sent only | 1,267 | 1,451,256,103 | 0.9944 |
+| 1d | sent or received | 1,811 | 1,477,589,405 | 0.9941 |
+| 1w | sent only | 4,920 | 1,588,913,743 | 0.9945 |
+| 1w | sent or received | 6,788 | 1,836,055,991 | 0.9935 |
+| 1m | sent only | 16,376 | 1,822,389,387 | 0.9953 |
+| 1m | sent or received | 21,833 | 2,251,839,870 | 0.9926 |
+| 3m | sent only | 78,988 | 2,028,740,101 | 0.9980 |
+| 3m | sent or received | 90,162 | 2,689,387,548 | 0.9962 |
+| 6m | sent only | 161,687 | 2,281,138,703 | 0.9986 |
+| 6m | sent or received | 184,663 | 3,669,289,541 | 0.9963 |
+| 1y | sent only | 199,723 | 2,387,226,841 | 0.9985 |
+| 1y | sent or received | 233,039 | 3,810,322,873 | 0.9962 |
+| all | sent only | 674,429 | 2,681,618,418 | 0.9992 |
+| all | sent or received | 812,736 | 4,375,642,490 | 0.9980 |
+
+**DAI observations:**
+- DAI shows a remarkably **flat Gini curve** across windows: from 0.9944 at 1-day sent-only to 0.9992 all-time — a range of only 0.005 compared to UNI's range of 0.055.
+- This reflects DAI's role as actively used money rather than a speculative or governance asset: the active holder set already captures essentially all economically relevant participants even at the 1-day window.
+- The 1-day active sender count (1,267) is already comparable to UNI's 1-month active sender count (3,844), indicating substantially higher turnover and real economic usage.
+- **Cross-token comparison takes shape:** governance tokens (UNI, AAVE) display strong window-sensitivity, while stablecoins (DAI so far) display window-insensitivity. Whether USDT and USDC confirm this pattern will be the next test.
 
 **UNI observations:**
 - The 1d sent-only Gini (0.944) is *significantly* lower than AAVE's (0.976). UNI shows the largest reduction in inequality when the active filter is applied, consistent with UNI being a major airdrop token where many recipients never transact.
