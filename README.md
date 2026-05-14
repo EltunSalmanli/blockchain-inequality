@@ -39,6 +39,7 @@ computed on the current balances of A_T(W).
 | 03 | Grid — UNI, all 7 windows × 2 active defs | https://dune.com/queries/7502379 |
 | 04 | Grid — DAI, all 7 windows × 2 active defs | https://dune.com/queries/7502514 |
 | 05 | Grid — USDC, all 7 windows × 2 active defs | https://dune.com/queries/7502585 |
+| 06 | Grid — USDT, all 7 windows × 2 active defs | https://dune.com/queries/7502648 |
 
 ## Results so far
 
@@ -123,6 +124,31 @@ computed on the current balances of A_T(W).
 | 1y | sent or received | 4,540,380 | 52,878,522,950 | 0.9977 |
 | all | sent only | 4,703,691 | 39,885,915,854 | 0.9984 |
 | all | sent or received | 6,855,774 | 53,511,887,415 | 0.9978 |
+
+### USDT grid (Query 06)
+
+| Window | Active def. | Active addresses | Total balance | Gini |
+|---|---|---|---|---|
+| 1d | sent only | 59,725 | 17,231,325,939 | 0.9958 |
+| 1d | sent or received | 112,117 | 19,370,739,253 | 0.9953 |
+| 1w | sent only | 228,216 | 42,229,632,853 | 0.9972 |
+| 1w | sent or received | 405,460 | 51,412,020,723 | 0.9973 |
+| 1m | sent only | 613,316 | 53,401,620,390 | 0.9976 |
+| 1m | sent or received | 1,033,636 | 67,250,247,473 | 0.9976 |
+| 3m | sent only | 1,889,276 | 57,333,699,117 | 0.9986 |
+| 3m | sent or received | 2,760,688 | 75,728,878,500 | 0.9982 |
+| 6m | sent only | 4,675,759 | 60,366,533,738 | 0.9992 |
+| 6m | sent or received | 6,072,328 | 91,148,235,678 | 0.9989 |
+| 1y | sent only | 5,546,711 | 71,610,660,397 | 0.9992 |
+| 1y | sent or received | 7,700,462 | 92,879,045,758 | 0.9987 |
+| all | sent only | 8,877,519 | 77,693,763,805 | 0.9991 |
+| all | sent or received | 13,790,988 | 97,884,984,629 | 0.9982 |
+
+**USDT observations:**
+- USDT is the **largest token by user base**: 8.9 million all-time senders and 13.8 million all-time senders-or-receivers. Comparable in scale to the population of a small country.
+- The Gini curve is the **flattest of all five ERC-20s analyzed** (range 0.003 across sent-only windows). USDT exhibits stablecoin-typical window-insensitivity.
+- Notably, USDT's Gini is *slightly higher than DAI's* at every window despite serving a similar economic role — possibly reflecting greater institutional concentration (large exchanges, treasuries) on top of the retail user base.
+- **Stablecoin pattern fully confirmed across three independent tokens** (DAI, USDC, USDT): when a token is used as money, active-holder Gini quickly converges to all-time Gini regardless of the activity window.
 
 **USDC observations:**
 - USDC has by far the largest active user base of any token analyzed: **38,061 daily senders, 4.7M all-time senders** — orders of magnitude beyond the governance tokens.
