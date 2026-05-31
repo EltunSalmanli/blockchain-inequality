@@ -40,7 +40,8 @@ computed on the current balances of A_T(W).
 | 04 | Grid — DAI, all 7 windows × 2 active defs | https://dune.com/queries/7502514 |
 | 05 | Grid — USDC, all 7 windows × 2 active defs | https://dune.com/queries/7502585 |
 | 06 | Grid — USDT, all 7 windows × 2 active defs | https://dune.com/queries/7502648 |
-| 08 | Time-series — AAVE, all 4 windows, quarterly snapshots | https://dune.com/queries/7624291/11577087 |
+| 08 | Time-series — AAVE, 4 windows, quarterly snapshots | https://dune.com/queries/7624291 |
+| 09 | Time-series — UNI, 4 windows, quarterly snapshots  | https://dune.com/queries/7624546 |
 ## Results so far
 
 ### Pilot (Query 01)
