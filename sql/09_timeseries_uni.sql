@@ -1,0 +1,93 @@
+WITH 
+transfers AS (
+    SELECT
+        "from"       AS sender,
+        "to"         AS receiver,
+        CAST(value AS DOUBLE) / 1e18 AS amount,
+        evt_block_time AS ts
+    FROM erc20_ethereum.evt_Transfer
+    WHERE contract_address = 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
+      AND "from" NOT IN (
+          0x0000000000000000000000000000000000000000,
+          0x000000000000000000000000000000000000dead
+      )
+      AND "to" NOT IN (
+          0x0000000000000000000000000000000000000000,
+          0x000000000000000000000000000000000000dead
+      )
+),
+
+events AS (
+    SELECT sender AS wallet, -amount AS signed, ts FROM transfers
+    UNION ALL
+    SELECT receiver AS wallet,  amount AS signed, ts FROM transfers
+),
+
+snapshots(snapshot_date) AS (
+    VALUES
+        (DATE '2021-01-01'), (DATE '2021-04-01'), (DATE '2021-07-01'), (DATE '2021-10-01'),
+        (DATE '2022-01-01'), (DATE '2022-04-01'), (DATE '2022-07-01'), (DATE '2022-10-01'),
+        (DATE '2023-01-01'), (DATE '2023-04-01'), (DATE '2023-07-01'), (DATE '2023-10-01'),
+        (DATE '2024-01-01'), (DATE '2024-04-01'), (DATE '2024-07-01'), (DATE '2024-10-01'),
+        (DATE '2025-01-01'), (DATE '2025-04-01'), (DATE '2025-07-01'), (DATE '2025-10-01'),
+        (DATE '2026-01-01'), (DATE '2026-04-01')
+),
+
+wallet_snapshot AS (
+    SELECT
+        s.snapshot_date,
+        e.wallet,
+        SUM(e.signed) AS balance,
+        MAX(e.ts)     AS last_activity
+    FROM snapshots s
+    JOIN events e ON e.ts < s.snapshot_date
+    GROUP BY s.snapshot_date, e.wallet
+    HAVING SUM(e.signed) > 0
+),
+
+exploded AS (
+    SELECT snapshot_date, '1d' AS window, wallet, balance
+    FROM wallet_snapshot
+    WHERE last_activity >= date_add('day',  -1,  snapshot_date)
+
+    UNION ALL
+
+    SELECT snapshot_date, '1w', wallet, balance
+    FROM wallet_snapshot
+    WHERE last_activity >= date_add('day',  -7,  snapshot_date)
+
+    UNION ALL
+
+    SELECT snapshot_date, '1m', wallet, balance
+    FROM wallet_snapshot
+    WHERE last_activity >= date_add('day',  -30, snapshot_date)
+
+    UNION ALL
+
+    SELECT snapshot_date, '1y', wallet, balance
+    FROM wallet_snapshot
+    WHERE last_activity >= date_add('day', -365, snapshot_date)
+),
+
+ranked AS (
+    SELECT
+        snapshot_date,
+        window,
+        balance,
+        ROW_NUMBER() OVER (PARTITION BY snapshot_date, window ORDER BY balance ASC) AS rnk,
+        COUNT(*)     OVER (PARTITION BY snapshot_date, window) AS n,
+        SUM(balance) OVER (PARTITION BY snapshot_date, window) AS total
+    FROM exploded
+)
+
+SELECT
+    'UNI' AS token,
+    snapshot_date,
+    window,
+    MAX(n) AS active_addresses,
+    (2.0 * SUM(rnk * balance) / (MAX(n) * MAX(total)))
+        - ((MAX(n) + 1.0) / MAX(n)) AS gini
+FROM ranked
+WHERE n >= 2
+GROUP BY snapshot_date, window
+ORDER BY snapshot_date, window;
